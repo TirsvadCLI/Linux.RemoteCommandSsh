@@ -6,9 +6,14 @@
 ## @details
 ## **Execute commands over ssh**
 
-declare -g TCLI_SSH_SCRIPTDIR="$(dirname "$(realpath "${BASH_SOURCE}")")"
+## @brief string basepath of this script
+declare -g -r TCLI_SSH_SCRIPTDIR="$(dirname "$(realpath "${BASH_SOURCE}")")"
+
+## @brief string IP address to conect server over ssh
 declare -g TCLI_SSH_IP
-declare -g TCLI_SSH_PORT
+
+## @brief interger IP port to conect server over ssh
+declare -g -i TCLI_SSH_PORT
 
 type -t tcli_logger_init >/dev/null || . ${TCLI_SSH_SCRIPTDIR}/vendor/Linux.Logger/src/Logger/run.sh
 
@@ -20,10 +25,10 @@ type -t tcli_logger_init >/dev/null || . ${TCLI_SSH_SCRIPTDIR}/vendor/Linux.Logg
 tcli_ssh_serverrootCmd_no_warning() {
 	TCLI_SERVERSETUP_TERMINAL_OUTPUT=$(ssh -p $TCLI_SSH_PORT root@$TCLI_SSH_IP $@)
 	if [ ! $? -eq 0 ]; then
-		printf "Command executed but failed: ssh -p $TCLI_SSH_PORT root@$TCLI_SSH_IP %s\n" "$*"
+		printf "Command executed but failed: ssh -p $TCLI_SSH_PORT root@$TCLI_SSH_IP %s\n" "$*" >&3
 		return 1
 	fi
-	printf "Command executed: ssh -p $TCLI_SSH_PORT root@$TCLI_SSH_IP %s\n" "$*"
+	printf "Command executed: ssh -p $TCLI_SSH_PORT root@$TCLI_SSH_IP %s\n" "$*" >&3
 }
 
 ## @fn tcli_ssh_serverrootCmd()

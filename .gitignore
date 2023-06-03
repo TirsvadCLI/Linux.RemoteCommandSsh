@@ -1,4 +1,3 @@
 [Tt]emp/
 [Ll]og/
-*.old
-documentation/doxygen
+documentation/doxygen/html
