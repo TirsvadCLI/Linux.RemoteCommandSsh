@@ -8,14 +8,16 @@
 
 ## @brief string basepath of this script
 declare -g -r TCLI_SSH_SCRIPTDIR="$(dirname "$(realpath "${BASH_SOURCE}")")"
-
+## @brief string version
+declare -g TCLI_SSH_VERSION
 ## @brief string IP address to conect server over ssh
 declare -g TCLI_SSH_IP
-
 ## @brief interger IP port to conect server over ssh
 declare -g -i TCLI_SSH_PORT
 
 type -t tcli_logger_init >/dev/null || . ${TCLI_SSH_SCRIPTDIR}/vendor/Linux.Logger/src/Logger/run.sh
+[ $(cd $TCLI_SSH_SCRIPTDIR; git describe --tags 2>/dev/null) ] && TCLI_SSH_VERSION=$(cd $TCLI_SSH_SCRIPTDIR; git describe --tags) || TCLI_SSH_VERSION="build $(git rev-parse --short HEAD)"
+tcli_logger_file_info "Loaded" "TCLI Ssh $TCLI_SSH_VERSION"
 
 ## @fn tcli_serversetup_serverrootCmd()
 ## @brief Connect server and an execute command as root
