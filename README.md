@@ -3,7 +3,8 @@ This is a submodule used in other scripts
 
 It can do commands over ssh
 
-[Github](https://github.com/TirsvadCLI/Linux.Ssh)
+This script is Obsolete
+Please go to [Github](https://github.com/TirsvadCLI/Linux.CommandHandler)
 
 ## Add it as submodule to your git project
     mkdir <submodules folder>
